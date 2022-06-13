@@ -28,6 +28,23 @@ class Match:
     s1: int
     s2: int
 
+    def is_forfeit(self) -> bool:
+        return ((self.s1 == 1 and self.s2 == 0) or
+                (self.s1 == 0 and self.s2 == 1))
+
+    @property
+    def winner(self) -> int:
+        '''Return the id of the winning player, 0 if the match is not over'''
+        if self.s1 == 2:
+            return 1
+        if self.s2 == 2:
+            return 2
+        if self.s1 == 1 and self.s2 == 0:
+            return 1
+        if self.s1 == 0 and self.s2 == 1:
+            return 2
+        return 0
+
 
 class EPTCup:
     BASE_URL = 'https://api.eslgaming.com/play/v1/leagues'
@@ -219,19 +236,21 @@ class LiquipediaPage:
 
         The player names, races, country flags and scores already displayed on
         Liquipedia for this match are held in current_info (keys: p1, p2, r1,
-        r2, f1, f2, s1, s2). Only scores are overriden.
+        r2, f1, f2, s1, s2).
+
+        The values already available on Liquipedia are not overwritten.
         '''
-        if match_.s1 == match_.s2 == 0:
-            s1 = s2 = ''
-        elif match_.s1 == 0 and match_.s2 == 1:
-            s1 = 'FF'
-            s2 = 'W'
-        elif match_.s1 == 1 and match_.s2 == 0:
-            s1 = 'W'
-            s2 = 'FF'
-        else:
-            s1 = current_info['s1'] or str(match_.s1)
-            s2 = current_info['s2'] or str(match_.s2)
+        def _format_player_score(match_: Match, current_info: dict,
+                                 player_index: int) -> str:
+            score = current_info['s%d' % player_index]
+            if not score:
+                if match_.is_forfeit():
+                    score = 'W' if match_.winner == player_index else 'FF'
+                elif match_.winner:
+                    score = str(getattr(match_, 's%d' % player_index))
+                else:
+                    score = ''
+            return score
 
         def _format_player_name(match_: Match, current_info: dict,
                                 player_index: int) -> str:
@@ -278,8 +297,8 @@ class LiquipediaPage:
             'race2': _format_player_race(match_, current_info, 2),
             'flag1': _format_player_flag(match_, current_info, 1),
             'flag2': _format_player_flag(match_, current_info, 2),
-            'score1': s1,
-            'score2': s2,
+            'score1': _format_player_score(match_, current_info, 1),
+            'score2': _format_player_score(match_, current_info, 2),
         }
         return '''|R%(roundno)sM%(matchno)s=%(bestof)s
     |opponent1={{1v1Opponent|1=%(name1)s%(flag1)s%(race1)s|score=%(score1)s}}

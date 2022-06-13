@@ -7,6 +7,37 @@ from liquipedia_scripts.lp_ept_cups import Match
 from liquipedia_scripts.lp_ept_cups import RegionEnum
 
 
+class TestMatch:
+    def test_match(self):
+        match_ = Match('Serral', 'Reynor', 0, 0)
+        assert match_.winner == 0
+        assert not match_.is_forfeit()
+
+        match_ = Match('Serral', 'Reynor', 1, 0)
+        assert match_.winner == 1
+        assert match_.is_forfeit()
+
+        match_ = Match('Serral', 'Reynor', 0, 1)
+        assert match_.winner == 2
+        assert match_.is_forfeit()
+
+        match_ = Match('Serral', 'Reynor', 2, 0)
+        assert match_.winner == 1
+        assert not match_.is_forfeit()
+
+        match_ = Match('Serral', 'Reynor', 2, 1)
+        assert match_.winner == 1
+        assert not match_.is_forfeit()
+
+        match_ = Match('Serral', 'Reynor', 0, 2)
+        assert match_.winner == 2
+        assert not match_.is_forfeit()
+
+        match_ = Match('Serral', 'Reynor', 1, 2)
+        assert match_.winner == 2
+        assert not match_.is_forfeit()
+
+
 @pytest.fixture
 def eptcup(monkeypatch):
     monkeypatch.setattr(EPTCup, '_get_league_id', lambda *args: 123)
@@ -282,6 +313,30 @@ class TestLiquipediaPage:
         expected = self.format_result('Syrril', 'PhleBuster',
                                       r1='|race=t', f1='|flag=de',
                                       r2='|race=z', f2='|flag=fi')
+        result = liquipedia_page._format_match_result(match_, current_info)
+        assert expected == result
+
+    def test__format_match_result_scores(self, liquipedia_page):
+        # In this scenario, a human entered the result of the match on
+        # Liquipedia before it was available on the ESL website (they probably
+        # were watching the stream and were really quick!). The ESL website
+        # therefore returns that the match is not over (0-0), and our script
+        # should not overwrite the values entered by its human friend.
+        current_info = {
+            'roundno': '1',
+            'matchno': '1',
+            'bestof': '',
+            'p1': 'Serral',
+            'p2': 'Reynor',
+            'r1': '',
+            'r2': '',
+            'f1': '',
+            'f2': '',
+            's1': '2',
+            's2': '0',
+        }
+        match_ = Match('Serral', 'Reynor', 0, 0)
+        expected = self.format_result('Serral', 'Reynor', s1='2', s2='0')
         result = liquipedia_page._format_match_result(match_, current_info)
         assert expected == result
 
