@@ -85,7 +85,6 @@ GunGFuBanDa,GunGFuBanDa,,,,1
 Harstem,Harstem,,,,1
 Has,Has,,,,1
 Hellraiser,Hellraiser,,,,1
-herO,herO,HerO(jOin),,,1
 herO,herO,herO(jOin),,,1
 HeroMarine,HeRoMaRinE,,,,1
 HHQuanTa,HHQuanTa,,,,1
@@ -182,7 +181,7 @@ Rattata,Rattata,,,,1
 Raza,Raza,,,,1
 reaper,Reaper,Reaper_(American_player),,,1
 ReBellioN,ReBellioN,,,,1
-Replicant,Replicant,Replican_(Kazakh_player),,,1
+Replicant,Replicant,Replicant_(Kazakh_player),,,1
 Revolution,Revolution,,,,1
 ReWhite,ReWhite,,,,1
 Rex,Rex,,,,1
@@ -233,7 +232,6 @@ TIME,TIME,,,,1
 TKL,TKL,,,,1
 Trap,Trap,,,,1
 Trifax,Trifax,,,,1
-TriGGeR,TriGGeR,,,,1
 trigger,trigger,,,,1
 TRUE,TRUE,,,,1
 uThermal,uThermal,,,,1
@@ -250,12 +248,14 @@ Zoun,Zoun,,,,1
 AaRaSs,AaRaSs,,z,fr,0
 acheron,acheron,,p,us,0
 Adrrich,Adrrich,,t,mx,0
+Alanreyflo,,t,mx,0
 Alpha,Alpha,,t,ru,0
 awaken,awaken,,z,ph,0
 awu,awu,,z,cn,0
 Azura,Azura,,p,it,0
 BadBorz,BadBorz,,z,pl,0
 BaRaGooD,BaRaGooD,,p,fr,0
+blarg,blarg,,z,us,0
 Blueming,Blueming,,t,cn,0
 blueming,blueming,,t,cn,0
 Blutmilan,Blutmilan,,p,de,0
@@ -264,8 +264,10 @@ Bush,Bush,,p,lt,0
 CAM,CAM,,p,us,0
 CHAO,CHAO,,t,cn,0
 Chao,Chao,,t,cn,0
+chromawa,chromawa,,p,us,0
 chelseafan,chelseafan,,p,us,0
 Clown,Clown,,p,cn,0
+CMS_Flash,Flash,,t,cn,0
 CristianoX,CristianoX,,p,cl,0
 Crown,Crown,,t,cl,0
 Daenerys,Daenerys,,z,pl,0
@@ -275,6 +277,7 @@ Deca,Deca,,p,fr,0
 Dobro,Dobro,,p,ua,0
 Dreamatose,Dreamatose,,p,us,0
 Dro,Dro,,p,us,0
+DubiousMD,DubiousMD,,p,us,0
 Elstubert,Elstubert,,p,us,0
 Faint,Faint,,z,kr,0
 Flexy,Flexy,,p,pl,0
@@ -306,6 +309,7 @@ meowerdoom,meowerdoom,,z,us,0
 Molten,Molten,,p,uk,0
 Neuling,Neuling,,p,de,0
 Nihed,Nihed,,t,hu,0
+Nikich,Nikich,,z,by,0
 NoMercy,NoMercy,,t,de,0
 NOOBER,NOOBER,,z,se,0
 Nuguri,Nuguri,,z,ru,0
@@ -319,15 +323,16 @@ probeiuscorp,ProbeiusCorp,,t,us,0
 ProbeScout,ProbeScout,,p,us,0
 pudgey,pudgey,,p,uk,0
 Pudgey,Pudgey,,p,uk,0
-Rask,Rask,,z,jp,0
+Rask,Rask,,z,cn,0
 ReaLiTy,ReaLiTy,,p,us,0
+Relm,Relm,,t,ca,0
 saVer,saVer,,p,de,0
 SharKRippeR,SharKRippeR,,t,de,0
 SilentHazard,SilentHazard,,t,mx,0
 SimplyHunter,SimplyHunter,,t,pe,0
 Slayer,Slayer,,p,us,0
 Slip,Slip,,t,us,0
-SlipJip,SlipJip,,p,us,0
+SlipJip,SlipJip,,t,us,0
 Sonic,Sonic,,t,de,0
 St0nedas,St0nedas,,p,au,0
 StarAtt,StarAtt,,p,tw,0
@@ -340,6 +345,7 @@ TheMarine,TheMarine,,t,us,0
 TheMoeHawk,TheMoeHawk,,p,my,0
 threepoint,threepoint,,z,kr,0
 UedSoldier,UedSoldier,,p,ru,0
+universe_sc2,universe,,t,kr,0
 Unobomber,Unobomber,,t,kr,0
 UpATree,UpATree,,t,ca,0
 Vanish,Vanish,,p,ca,0
@@ -349,6 +355,7 @@ Vipor,Vipor,,z,us,0
 Warlord,Warlord,,p,us,0
 WhoSly,WhoSly,,t,us,0
 xiaohe,xiaohe,,t,cn,0
+yermi66,yermi,,t,cr,0
 YourBroChris,YourBroChris,,p,no,0
 Yoyo_sc2,Yoyo,,p,us,0
 yoyo,yoyo,,z,us,0
