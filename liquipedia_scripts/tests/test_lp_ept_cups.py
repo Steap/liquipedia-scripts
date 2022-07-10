@@ -4,7 +4,16 @@ import liquipedia_scripts
 from liquipedia_scripts.lp_ept_cups import EPTCup
 from liquipedia_scripts.lp_ept_cups import LiquipediaPage
 from liquipedia_scripts.lp_ept_cups import Match
+from liquipedia_scripts.lp_ept_cups import Player
 from liquipedia_scripts.lp_ept_cups import RegionEnum
+
+
+class FakePlayer:
+    herO = Player(7831103, 'her0')
+    PhleBuster = Player(16597540, 'PhleBuster')
+    Reynor = Player(5701196, 'Reynor')
+    Serral = Player(6467940, 'Serral')
+    Syrril = Player(16616688, 'Syrril')
 
 
 class TestMatch:
@@ -53,7 +62,7 @@ class TestEPTCup:
             "name": "Syrril",
         }]
         requests_mock.get(url, json=fake_answer)
-        assert list(eptcup.participants) == ['Syrril']
+        assert list(eptcup.participants) == [FakePlayer.Syrril]
 
     def test_n_rounds(self, eptcup, monkeypatch):
         eptcup._participants = {player_id: 'name' for player_id in range(1)}
@@ -94,7 +103,7 @@ class TestEPTCup:
         }]
         requests_mock.get(results_url, json=fake_results)
 
-        assert eptcup.results[0][14] == Match('', 'Syrril', 0, 1)
+        assert eptcup.results[0][14] == Match(None, FakePlayer.Syrril, 0, 1)
 
     def test_result_null_points(self, requests_mock, eptcup):
         # When a match has not yet been played, the ESL API returns the score
@@ -122,7 +131,7 @@ class TestEPTCup:
         }]
         requests_mock.get(results_url, json=fake_results)
 
-        assert eptcup.results[0][14] == Match('', 'Syrril', 0, 0)
+        assert eptcup.results[0][14] == Match(None, FakePlayer.Syrril, 0, 0)
 
 
 class MockPage:
@@ -155,7 +164,12 @@ class MockSite:
 
 class MockEPTCup:
     def __init__(self, *args, **kwargs):
-        self.participants = ['herO', 'Serral', 'PhleBuster', 'Syrril']
+        self.participants = [
+            FakePlayer.herO,
+            FakePlayer.Serral,
+            FakePlayer.PhleBuster,
+            FakePlayer.Syrril
+        ]
 
 
 @pytest.fixture
@@ -166,11 +180,11 @@ def liquipedia_page(monkeypatch, tmp_path):
     @staticmethod
     def fake_get_known_players_file():
         csv_file = tmp_path / 'players.csv'
-        csv_file.write_text('''ESL name,LP name,LP link,race,flag,notable
-herO,herO,herO(jOin),,,1
-Serral,Serral,,,,1
-Syrril,Syrril,,z,fr,0
-PhleBuster,PhleBuster,,z,fi,0
+        csv_file.write_text('''ESL id,LP name,LP link,race,flag,notable
+7831103,herO,herO(jOin),,,1
+6467940,Serral,,,,1
+16616688,Syrril,,z,fr,0
+16597540,PhleBuster,,z,fi,0
 ''')
         return csv_file
 
@@ -185,28 +199,28 @@ PhleBuster,PhleBuster,,z,fi,0
 class TestLiquipediaPage:
     def test__fetch_known_players(self, liquipedia_page):
         known_players = {
-            'herO': {
+            FakePlayer.herO.esl_id: {
                 'LP link': 'herO(jOin)',
                 'LP name': 'herO',
                 'flag': '',
                 'notable': '1',
                 'race': ''
             },
-            'Serral': {
+            FakePlayer.Serral.esl_id: {
                 'LP link': '',
                 'LP name': 'Serral',
                 'flag': '',
                 'notable': '1',
                 'race': ''
             },
-            'PhleBuster': {
+            FakePlayer.PhleBuster.esl_id: {
                 'LP link': '',
                 'LP name': 'PhleBuster',
                 'flag': 'fi',
                 'notable': '0',
                 'race': 'z'
             },
-            'Syrril': {
+            FakePlayer.Syrril.esl_id: {
                 'LP link': '',
                 'LP name': 'Syrril',
                 'flag': 'fr',
@@ -251,12 +265,12 @@ class TestLiquipediaPage:
             's1': '',
             's2': '',
         }
-        match_ = Match('Serral', 'Reynor', 2, 1)
+        match_ = Match(FakePlayer.Serral, FakePlayer.Reynor, 2, 1)
         expected = self.format_result('Serral', 'Reynor', s1='2', s2='1')
         result = liquipedia_page._format_match_result(match_, current_info)
         assert expected == result
 
-        match_ = Match('Serral', 'Reynor', 0, 2)
+        match_ = Match(FakePlayer.Serral, FakePlayer.Reynor, 0, 2)
         expected = self.format_result('Serral', 'Reynor', s1='0', s2='2')
         result = liquipedia_page._format_match_result(match_, current_info)
         assert expected == result
@@ -277,12 +291,12 @@ class TestLiquipediaPage:
             's1': '',
             's2': '',
         }
-        match_ = Match('Serral', 'Reynor', 1, 0)
+        match_ = Match(FakePlayer.Serral, FakePlayer.Reynor, 1, 0)
         expected = self.format_result('Serral', 'Reynor', s1='W', s2='FF')
         result = liquipedia_page._format_match_result(match_, current_info)
         assert expected == result
 
-        match_ = Match('Serral', 'Reynor', 0, 1)
+        match_ = Match(FakePlayer.Serral, FakePlayer.Reynor, 0, 1)
         expected = self.format_result('Serral', 'Reynor', s1='FF', s2='W')
         result = liquipedia_page._format_match_result(match_, current_info)
         assert expected == result
@@ -309,7 +323,7 @@ class TestLiquipediaPage:
             's1': '',
             's2': '',
         }
-        match_ = Match('Syrril', 'PhleBuster', 0, 0)
+        match_ = Match(FakePlayer.Syrril, FakePlayer.PhleBuster, 0, 0)
         expected = self.format_result('Syrril', 'PhleBuster',
                                       r1='|race=t', f1='|flag=de',
                                       r2='|race=z', f2='|flag=fi')
@@ -335,7 +349,7 @@ class TestLiquipediaPage:
             's1': '2',
             's2': '0',
         }
-        match_ = Match('Serral', 'Reynor', 0, 0)
+        match_ = Match(FakePlayer.Serral, FakePlayer.Reynor, 0, 0)
         expected = self.format_result('Serral', 'Reynor', s1='2', s2='0')
         result = liquipedia_page._format_match_result(match_, current_info)
         assert expected == result
