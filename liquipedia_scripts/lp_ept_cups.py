@@ -22,9 +22,15 @@ class RegionEnum(str, Enum):
 
 
 @dataclass
+class Player:
+    esl_id: int
+    esl_name: str
+
+
+@dataclass
 class Match:
-    p1: str
-    p2: str
+    p1: Player
+    p2: Player
     s1: int
     s2: int
 
@@ -106,7 +112,8 @@ class EPTCup:
         url = f'{self.BASE_URL}/{self.league_id}/contestants?states=checkedIn'
         r = requests.get(url)
         for pjson in r.json():
-            self._participants[pjson['id']] = pjson['name']
+            self._participants[pjson['id']] = Player(pjson['id'],
+                                                     pjson['name'])
 
     @property
     def participants(self):
@@ -123,8 +130,8 @@ class EPTCup:
         url = f'{self.BASE_URL}/{self.league_id}/results'
         r = requests.get(url)
         for jresult in r.json():
-            p1 = self._participants.get(jresult['participants'][0]['id'], '')
-            p2 = self._participants.get(jresult['participants'][1]['id'], '')
+            p1 = self._participants.get(jresult['participants'][0]['id'])
+            p2 = self._participants.get(jresult['participants'][1]['id'])
             s1 = (jresult['participants'][0]['points'] or [0])[0]
             s2 = (jresult['participants'][1]['points'] or [0])[0]
             roundno = jresult['round']
@@ -175,8 +182,8 @@ class LiquipediaPage:
         with open(self._get_known_players_file()) as f:
             reader = csv.DictReader(f)
             for row in reader:
-                esl_name = row.pop('ESL name')
-                players[esl_name] = row
+                esl_id = int(row.pop('ESL id'))
+                players[esl_id] = row
         return players
 
     def _authenticate(self):
@@ -198,9 +205,9 @@ class LiquipediaPage:
         current_text = self.page.text(section=self.PARTICIPANTS_SECTION)
         notable_players = []
         i = 1
-        for eslname in self.ept_cup.participants:
+        for esl_player in self.ept_cup.participants:
             try:
-                player = self.known_players[eslname]
+                player = self.known_players[esl_player.esl_id]
                 if int(player['notable']):
                     lpname = player['LP name']
                     link = player['LP link']
@@ -269,23 +276,30 @@ class LiquipediaPage:
 
         def _format_player_name(match_: Match, current_info: dict,
                                 player_index: int) -> str:
-            player = current_info['p%d' % player_index]
-            if not player:
+            player_name = current_info['p%d' % player_index]
+            if not player_name:
                 try:
-                    player_esl_name = getattr(match_, 'p%d' % player_index)
-                    player = self.known_players[player_esl_name]['LP name']
+                    esl_player = getattr(match_, 'p%d' % player_index)
+                    if esl_player is None:
+                        player_name = ''
+                    else:
+                        player = self.known_players[esl_player.esl_id]
+                        player_name = player['LP name']
                 except KeyError:
-                    player = player_esl_name
-            return player
+                    player_name = esl_player.esl_name
+            return player_name
 
         def _format_player_race(match_: Match, current_info: dict,
                                 player_index: int) -> str:
             race = current_info['r%d' % player_index]
             if not race:
                 try:
-                    player_esl_name = getattr(match_, 'p%d' % player_index)
-                    r = self.known_players[player_esl_name]['race']
-                    race = f'|race={r}' if r else ''
+                    esl_player = getattr(match_, 'p%d' % player_index)
+                    if esl_player is None:
+                        race = ''
+                    else:
+                        r = self.known_players[esl_player.esl_id]['race']
+                        race = f'|race={r}' if r else ''
                 except KeyError:
                     race = ''
             return race
@@ -295,9 +309,12 @@ class LiquipediaPage:
             flag = current_info['f%d' % player_index]
             if not flag:
                 try:
-                    player_esl_name = getattr(match_, 'p%d' % player_index)
-                    r = self.known_players[player_esl_name]['flag']
-                    flag = f'|flag={r}' if r else ''
+                    esl_player = getattr(match_, 'p%d' % player_index)
+                    if esl_player is None:
+                        flag = ''
+                    else:
+                        f = self.known_players[esl_player.esl_id]['flag']
+                        flag = f'|flag={f}' if f else ''
                 except KeyError:
                     flag = ''
             return flag
