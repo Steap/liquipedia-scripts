@@ -61,63 +61,24 @@ class EPTCup:
         self._participants = None
 
     def _get_league_id(self, region: RegionEnum, edition: int):
-        # We need to get the "league id" from the tournament page (a URL like
-        # https://play.eslgaming.com/starcraft/global/sc2/open/1on1-series-korea/cup-125/
-        # Unfortunately, sending a GET request to that page triggers Cloudflare
-        # and forces us to 1) wait while our browser is being checked 2) fill
-        # in a captcha 3) get denied access.
-        # Our solution is to get the league ids in advance and keep a list
-        # here. We will need to keep it updated or find a better solution.
-        return {
-            'AM': {
-                125: '237935',
-                126: '238957',
-                127: '238958',
-                128: '238959',
-                129: '238960',
-                130: '240210',
-                131: '240211',
-                132: '240212',
-                133: '240213',
-                134: '240214',
-                135: '241069',
-                136: '241070',
-                137: '241071',
-                138: '241072',
-            },
-            'EU': {
-                125: '237930',
-                126: '238953',
-                127: '238954',
-                128: '238955',
-                129: '238956',
-                130: '240205',
-                131: '240206',
-                132: '240207',
-                133: '240208',
-                134: '240209',
-                135: '241065',
-                136: '241066',
-                137: '241067',
-                138: '241068',
-            },
-            'KR': {
-                125: '237925',
-                126: '238949',
-                127: '238950',
-                128: '238951',
-                129: '238952',
-                130: '240200',
-                131: '240201',
-                132: '240202',
-                133: '240203',
-                134: '240204',
-                135: '241061',
-                136: '241062',
-                137: '241063',
-                138: '241064',
-            },
-        }[region][edition]
+        url = self.BASE_URL + '?types=cup,esl_series'
+        # Only requesting info about cups in progress or upcoming, otherwise
+        # the request takes forever.
+        url += '&states=inprogress,upcoming'
+        url += '&tags=sc2'
+        url += '&skill_levels=open,major'
+        r = requests.get(url)
+        for league_id, cup_details in r.json().items():
+            region_full = {
+                RegionEnum.NA: 'Americas',
+                RegionEnum.EU: 'Europe',
+                RegionEnum.KR: 'Asia',
+            }[region]
+            if f'#{edition} {region_full}' in cup_details['name']['full']:
+                return league_id
+        else:
+            raise ValueError('Could not find league id (%s #%d)' %
+                             (region, edition))
 
     def _fetch_participants(self):
         self._participants = {}
