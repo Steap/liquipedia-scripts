@@ -1,0 +1,14 @@
+#!/bin/bash
+
+region=$1
+edition=$2
+cond=$(date -d "+5 hours" +%s)
+while true
+do
+    nowdate=$(date -d now +%s)
+    if [[ "$nowdate" -ge "$cond" ]]; then
+        break
+    fi
+    tox -edev -- lp-ept-cups results "$region" "$edition"
+    sleep 60
+done
