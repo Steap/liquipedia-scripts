@@ -5,6 +5,7 @@ ESL id,LP name,LP link,race,flag,notable
 16103067,Adonminus,,,,1
 8607890,Aegwynn,,,,1
 8362407,aGaham,,,,1
+16088132,Agressif,,,,1
 6452055,aLive,,,,1
 10459879,AllHailLulu!,,,,1
 9853488,Angry,,,,1
@@ -44,7 +45,6 @@ ESL id,LP name,LP link,race,flag,notable
 8441436,BuRning,,,,1
 7025487,ByuL,,,,1
 7432096,ByuN,,,,1
-4296359,Cptnfingers,,,,1
 1440545,CatZ,,,,1
 10137025,Chabby,,,,1
 7799123,Cham,,,,1
@@ -55,6 +55,7 @@ ESL id,LP name,LP link,race,flag,notable
 14550197,Coffee,,,,1
 14536034,control,Control (Korean player),,,1
 5810586,control,Control_(Russian_player),,,1
+4296359,Cptnfingers,,,,1
 7024220,Creator,,,,1
 7797965,Creature,,,,1
 5111322,Creed,,,,1
@@ -134,10 +135,10 @@ ESL id,LP name,LP link,race,flag,notable
 6452124,GuMiho,,,,1
 7054318,GunGFuBanDa,,,,1
 7086907,Guru,,,,1
-7908854,HateMe,,,,1
 5320506,HaPe,,,,1
 3057076,Harstem,,,,1
 7926361,Has,,,,1
+7908854,HateMe,,,,1
 7559553,Hellraiser,,,,1
 7831103,herO,HerO(jOin),,,1
 4742043,HeRoMaRinE,,,,1
@@ -225,9 +226,9 @@ ESL id,LP name,LP link,race,flag,notable
 8705659,msrm,,,,1
 7217235,MystiC,,,,1
 11943707,NaiveZerg,,,,1
+14875542,NaJi,,p,ru,1
 7486967,Namshar,,,,1
 932590,NaNiwa,,,,1
-14875542,NaJi,,p,ru,1
 11448963,NaXin,,,,1
 9037858,Neeb,,,,1
 14556111,NeosShaggy,,,,1
@@ -245,6 +246,7 @@ ESL id,LP name,LP link,race,flag,notable
 8970899,Nycro,,,,1
 9222027,NYK,,,,1
 15773896,Nzs,,,,1
+8559008,Oliveira,,,,1
 8519409,Operator,,,,1
 13924931,OpTiMiStC,,,,1
 14625690,Oreo,,,,1
@@ -274,7 +276,6 @@ ESL id,LP name,LP link,race,flag,notable
 7164323,RagnaroK,,,,1
 5223414,Rail,,,,1
 8827261,Ranger,,,,1
-10273088,Wayne,,,,1
 5293331,Raza,,,,1
 13153024,Reaper,Reaper_(American_player),,,1
 13164626,ReBellioN,,,,1
@@ -298,7 +299,6 @@ ESL id,LP name,LP link,race,flag,notable
 6139353,RusZerg,,,,1
 14392904,Ryan,,,,1
 7161629,Ryung,,,,1
-16088132,Agressif,,,,1
 11301856,SaLemandr,,,,1
 4441803,SantaSam,,,,1
 6211852,Scarlett,,,,1
@@ -346,13 +346,13 @@ ESL id,LP name,LP link,race,flag,notable
 5840975,TheMusZero,,,,1
 8835424,THERIDDLER,,,,1
 9099122,TheZergLord,,,,1
-8559008,Oliveira,,,,1
 13164693,threepoint,,,,1
 9143270,Timorus,,,,1
 7324324,TKL,,,,1
 7831193,Trap,,,,1
 9254487,Trifax,,,,1
 15884214,trigger,,,,1
+7923718,TRUE,,,,1
 10943236,Twine,,,,1
 7923722,TY,,,,1
 14549414,Universe,,,,1
@@ -365,6 +365,7 @@ ESL id,LP name,LP link,race,flag,notable
 9466522,Voltz,,,,1
 13626704,WannaBeByuN,,,,1
 7798785,WarreN,,,,1
+10273088,Wayne,,,,1
 8037005,WayTeh,,,,1
 15882536,WhiteIdra,,,,1
 11091724,YanXII,,,,1
@@ -379,7 +380,6 @@ ESL id,LP name,LP link,race,flag,notable
 7942171,Zinho,,,,1
 9557965,Ziomek,,,,1
 14446167,Zoun,,,,1
-7923718,TRUE,,,,1
 9208896,AaRaSs,,z,fr,0
 16814883,acheron,,p,us,0
 14854810,Adnap,,t,fr,0
@@ -541,8 +541,8 @@ ESL id,LP name,LP link,race,flag,notable
 14652919,St0nedas,,p,au,0
 15865522,StarAtt,,p,tw,0
 16722196,Statis,,p,gr,0
-17013990,StereoClub,,p,ru,0
 15590746,StephenCurry,,p,kr,0
+17013990,StereoClub,,p,ru,0
 16629994,steven,,t,us,0
 11379503,Sunshine,,z,au,0
 16616688,Syrril,,z,fr,0
@@ -564,8 +564,8 @@ ESL id,LP name,LP link,race,flag,notable
 16208577,WiNtER,,p,hu,0
 18250513,Xistl,,t,ru,0
 18274953,Xung,,t,de,0
-14649665,yermi,,t,cr,0
 6629728,YellowFox,,z,fr,0
+14649665,yermi,,t,cr,0
 17392537,YourBroChris,,p,no,0
 14680316,Yoyo,,z,us,0
 16842248,Zargrash,,p,de,0
